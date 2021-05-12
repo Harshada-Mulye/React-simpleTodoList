@@ -9,6 +9,28 @@ const TodoList = () => {
 		{ id: 2, title: 'Wash windows', isDone: true },
 		{ id: 3, title: 'Study more', isDone: false }
 	])
+	const[filter,setFilter]=useState("all")
+	//const[filteredTodos,setFilteredTodos]=useState([])
+     let filteredTodos = []
+
+
+	 if(filter==="completed")
+	 {
+	 filteredTodos=todoList.filter(todo=>todo.isDone===true)
+	 }
+	else if(filter==="uncompleted")
+	 {
+		filteredTodos=todoList.filter(todo=>todo.isDone===false)	 
+	 }
+	 else{
+		filteredTodos=todoList
+	 }
+	
+
+
+  
+
+
 
 	const addTodoItem = title => {
 		// todoList.push  <- fungerar inte i React
@@ -33,7 +55,7 @@ const TodoList = () => {
 		  }
 
 	// Higher order functions for arrays: forEach, map, filter, find...
-	const jsxList = todoList.map(todoItem => (
+	const jsxList = filteredTodos.map(todoItem => (
 		<li key={todoItem.id} className={todoItem.isDone ? 'done' : ''}>
 			{todoItem.title}
 			{todoItem.isDone ? null :
@@ -47,7 +69,8 @@ const TodoList = () => {
 			<ul>
 				{jsxList}
 			</ul>
-			<AddTodo addTodoItem={addTodoItem} />
+			<AddTodo addTodoItem={addTodoItem} setFilter={setFilter} />
+			
 		</div>
 	)
 }
